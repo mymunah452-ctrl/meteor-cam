@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meteor Behind You</title>
+  <style>
+    body,html {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    video#cam {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+    }
+    img#meteor {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 35vmin;
+      max-width: 480px;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+<body>
+  <video id="cam" autoplay playsinline></video>
+  <img
+    id="meteor"
+    src="https://upload.wikimedia.org/wikipedia/commons/3/3e/433eros.jpg"
+    alt="433 Eros"
+  />
+
+  <script>
+    const video = document.getElementById('cam');
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+      })
+      .catch((err) => {
+        alert('Camera access denied or unavailable.');
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
